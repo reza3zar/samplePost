@@ -1,0 +1,46 @@
+<li class="tg-list-item" *ngIf="isLoadingPage">
+  <h4>SwitchToGridView</h4>
+  <input class="tgl tgl-ios" id="cb2" (change)="changeView()" type="checkbox"/>
+  <label class="tgl-btn" for="cb2"></label>
+</li>
+<section *ngIf="!isTableView && !isLoadingPage ">
+
+  <div style="display: flex;" class="row">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3" class="card" *ngFor="let postItem of postCollection$"  >
+      <div >
+        <img src="../../../assets/post.jpg" alt="" class="imgClass">
+        <h5>{{postItem.title}}</h5>
+        <p>{{postItem.body}}</p>
+      </div>
+  </div>
+  </div>
+
+</section>
+
+
+<div *ngIf="isTableView && !isLoadingPage " >
+
+  <table class="table table-bordered"  >
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Title</th>
+        <th scope="col">body</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let postItem of postCollection$">
+
+        <td>{{postItem.id}}</td>
+        <td>{{postItem.title}}</td>
+        <td>{{postItem.body}}</td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="isLoadingPage">
+  <app-loading></app-loading>
+</div>
+
