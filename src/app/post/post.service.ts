@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { Post } from '../Model/Post';
+import { Post } from '../models/Post';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -12,8 +12,18 @@ export class PostService {
   constructor(private http: HttpClient) { }
 
 
+
+  savePost(post: Post) {
+    return this.http.post<any>("http://localhost:3000/posts",post).pipe(
+      catchError(this.handleError)
+    );
+
+  }
+
   getPostCollection(): Observable<Post[]>{
-    return this.http.get<Post[]>("https://jsonplaceholder.typicode.com/posts").pipe(
+    let headers = new HttpHeaders();
+    headers = headers.append('auth-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDE0NjkyZTUwNWUxYTAwMjJkZTUyNTciLCJlbWFpbCI6InlvdW5lc2kubmltYTNAZ21haWwuY29tIiwiaWF0IjoxNjExOTUwMzk2fQ.oKFZCeHOnB8YQPD_1j1KjPa1Il2qNT7Wdsct1F0WTMw');
+    return this.http.get<Post[]>("https://postyserver.herokuapp.com/posts",{headers}).pipe(
       catchError(this.handleError)
     );
   }
