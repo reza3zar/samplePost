@@ -12,7 +12,8 @@ import { PostService } from '../post.service';
 })
 
 
-export class PostListComponent implements OnInit,OnDestroy {
+export class PostListComponent implements OnInit, OnDestroy {
+    domain = 'https://postyserver.herokuapp.com/';
   postCollection$: Post[] = [];
   isLoadingPage = true;
   subscription$: Subscription;
